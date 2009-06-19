@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Gezira Test</title>
+    <script src="nile.js"></script>
+    <script src="gezira.js"></script>
+    <script>
+      function render(image) {
+        var color = gezira.UniformColor(new gezira.Pixel(1, 1, 1, 0));
+        var r = gezira.Renderer(image, color, gezira.CompositeOver)(null);
+        var input = [];
+        with(gezira) {
+          input.push(new Bezier(new Point(100, 100),
+                                new Point(150, 200),
+                                new Point(160, 300)));
+          input.push(new Bezier(new Point(160, 300),
+                                new Point(120, 180),
+                                new Point(40, 300)));
+          input.push(new Bezier(new Point(40, 300),
+                                new Point(50, 200),
+                                new Point(100, 100)));
+        }
+        r(input);
+      };
+
+      function main() {
+        var c = document.getElementsByTagName('canvas')[0].getContext('2d');
+        image = c.getImageData(0, 0, 500, 500);
+        render(image);
+        c.putImageData(image, 0, 0);
+        //alert('done');
+      };
+    </script>
+  </head>
+  <body onload="main();">
+    <canvas width=500 height=500 />
+  </body>
+</html>
